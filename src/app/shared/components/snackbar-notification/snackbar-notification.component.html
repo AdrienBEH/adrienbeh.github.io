@@ -1,0 +1,21 @@
+<div id="snackbarNotification">
+    <div>
+        <mat-icon [fontIcon]="data.icon"></mat-icon>
+        <span>{{ data.message }}</span>
+    </div>
+    <div>
+        <button
+            mat-icon-button
+            (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+<div *ngIf="progressBar">
+    <mat-progress-bar
+        class="progress-bar"
+        mode="determinate"
+        height="3"
+        [value]="progressBar.value">
+    </mat-progress-bar>
+</div>

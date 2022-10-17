@@ -1,0 +1,34 @@
+:host ::ng-deep {
+    .mat-grid-list > div {
+        > mat-grid-tile:not(:nth-child(3)) {
+            .mat-grid-tile-content {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                text-align: center;
+                > span:nth-child(1) {
+                    opacity: 7;
+                }
+                > span:nth-child(2) {
+                    font-size: 2em;
+                }
+            }
+        }
+        > mat-grid-tile:nth-child(3) {
+            mat-icon {
+                scale: 3;
+            }
+        }
+    }
+    mat-card-header {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    mat-card-actions {
+        display: flex;
+        justify-content: center;
+        > button {
+            flex: 1;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+mat-form-field mat-spinner {
+    margin-right: 4px;
+}
+div mat-spinner {
+    margin: auto;
+}

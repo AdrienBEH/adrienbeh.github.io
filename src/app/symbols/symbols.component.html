@@ -1,0 +1,36 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="standard">
+    <mat-label>Symbol</mat-label>
+    <span matPrefix>
+      <mat-icon
+        *ngIf="!symbolsLoading; else symbolsLoader"
+        [matBadge]="filteredSymbolsCount"
+        matBadgePosition="before"
+        matBadgeColor="primary"
+        fontIcon="functions">
+      </mat-icon>
+      <ng-template #symbolsLoader>
+        <mat-spinner diameter="20"></mat-spinner>
+      </ng-template>
+    </span>
+    <input id="stockInput" type="text" matInput [formControl]="symbolControl" [matAutocomplete]="auto">      
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of (filteredSymbols$ | async)?.symbols" [value]="option">
+        {{ option.symbol }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <button id="trackBtn" mat-raised-button (click)="trackStockSymbol()" color="primary">
+    <mat-icon fontIcon="visibility"></mat-icon>
+    <span>{{ 'track' | uppercase }}</span>
+  </button>
+</form>
+<div appGrid templateColumns="repeat(3, 1fr)" gap="6px">
+  <mat-spinner *ngIf="trackLoading"></mat-spinner>
+  <app-symbol
+    *ngFor="let symbol of (symbols$ | async)! | reverse; trackBy: trackBySymbol"
+    [symbol]="symbol"
+    (detailRequest)="symbolDetail($event)"
+    (unstockRequest)="symbolUnstock($event)">
+  </app-symbol>
+</div>

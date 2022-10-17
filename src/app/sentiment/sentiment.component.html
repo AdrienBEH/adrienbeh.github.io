@@ -1,0 +1,34 @@
+<h1>{{ symbol.description }}</h1>
+<h2>{{ symbol.symbol }}</h2>
+<mat-spinner *ngIf="sentimentsLoading"></mat-spinner>
+<div
+  appGrid
+  templateColumns="repeat(3, 1fr)"
+  gap="6px">
+  <mat-card *ngFor="let sentiment of sentiments$ | async">
+    <mat-card-header>
+      <mat-card-title>{{ sentiment.date.toISO() | date: 'MMMM y' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list cols="3" rowHeight="2:1" gutterSize="5">
+        <mat-grid-tile colspan="1" rowspan="1">
+          <span>Change:</span>
+          <span>{{ sentiment.change }}</span>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1">
+          <span>MSPR:</span>
+          <span>{{ sentiment.mspr | number:'1.2-2' }}</span>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1" [ngStyle]="{'display': 'flex'}">
+          <mat-icon *ngIf="sentiment.change > 0" color="primary" fontIcon="trending_up"></mat-icon>
+          <mat-icon *ngIf="sentiment.change < 0" color="warn" fontIcon="trending_down"></mat-icon>
+          <mat-icon *ngIf="sentiment.change === 0" color="default" fontIcon="trending_flat"></mat-icon>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+<button id="backBtn" mat-raised-button color="primary" routerLink="/">
+  <mat-icon fontIcon="arrow_back_ios"></mat-icon>
+  <span>{{ 'stocks' | uppercase }}</span>
+</button>

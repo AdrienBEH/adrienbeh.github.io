@@ -1,0 +1,27 @@
+:host {
+    font-weight: 700;
+    ::ng-deep {
+        .progress-bar {
+            position: absolute;
+            top: 91%!important;
+            height: 6px;
+            left: 0;
+            width: 100%!important;
+            border-radius: 0 0 2px 2px;
+        }
+    }
+    #snackbarNotification {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        > div:nth-child(1) {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            gap: 10px;
+        }
+    }
+}
