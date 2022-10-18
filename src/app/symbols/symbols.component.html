@@ -13,14 +13,23 @@
         <mat-spinner diameter="20"></mat-spinner>
       </ng-template>
     </span>
-    <input id="stockInput" type="text" matInput [formControl]="symbolControl" [matAutocomplete]="auto">      
+    <input id="stockInput" type="text" matInput [formControl]="symbolControl" [matAutocomplete]="auto">
+    <mat-error *ngIf="symbolControl.hasError('classValidator')">Please select symbol from options.</mat-error> 
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of (filteredSymbols$ | async)?.symbols" [value]="option">
+      <mat-option
+        *ngFor="let option of (filteredSymbols$ | async)?.symbols"
+        [value]="option"
+        [disabled]="symbolsLoading">
         {{ option.symbol }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <button id="trackBtn" mat-raised-button (click)="trackStockSymbol()" color="primary">
+  <button
+    id="trackBtn"
+    mat-raised-button
+    (click)="trackStockSymbol()"
+    color="primary"
+    [disabled]="!symbolControl.valid || trackLoading">
     <mat-icon fontIcon="visibility"></mat-icon>
     <span>{{ 'track' | uppercase }}</span>
   </button>

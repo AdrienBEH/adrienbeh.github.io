@@ -6,6 +6,7 @@ import { StockSymbol } from '../shared/models';
 import { sortByCustomKey } from '../shared/utils';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { ClassValidatorDirective } from '../shared/directives/class-validator.directive';
 
 @Component({
   selector: 'app-symbols',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['symbols.component.scss'],
 })
 export class SymbolsComponent implements OnInit {
-  symbolControl = new FormControl<string | StockSymbol>('');
+  symbolControl = new FormControl<string | StockSymbol>('', [ClassValidatorDirective.reactive(StockSymbol)]);
   filteredSymbols$: Observable<{ count: number; symbols: StockSymbol[] }>;
   filteredSymbolsCount: number | undefined;
   symbols$: Observable<StockSymbol[]>;
