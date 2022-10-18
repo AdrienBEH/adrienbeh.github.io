@@ -30,8 +30,8 @@ export class SnackbarNotificationComponent implements OnInit, OnDestroy {
      * @param {SnackbarNotificationService} _snackbarNotificationService - SnackbarNotificationService.
      * @param {ChangeDetectorRef} ref - Call render refresh.
      */
-    constructor (
-        @Inject( MAT_SNACK_BAR_DATA ) public data: SnackBarData,
+    constructor(
+        @Inject(MAT_SNACK_BAR_DATA) public data: SnackBarData,
         private ref: ChangeDetectorRef,
         private snackBar: MatSnackBarRef<SnackbarNotificationComponent>
     ) {}
@@ -39,21 +39,18 @@ export class SnackbarNotificationComponent implements OnInit, OnDestroy {
     /**
      * Called when component is initialised.
      */
-    ngOnInit (): void {
-        if ( this.data.duration !== undefined ) {
+    ngOnInit(): void {
+        if (this.data.duration !== undefined) {
             this.progressBar = new ProgressBar({ duration: this.data.duration });
-            this.progressBar.startAnimation( this.ref );
+            this.progressBar.startAnimation(this.ref);
         }
     }
 
     /**
      * Called when component is destroy.
      */
-    ngOnDestroy (): void {
-        
-        if ( this.progressBar ) {
-            this.progressBar.endAnimation();
-        }
+    ngOnDestroy(): void {
+        if (this.progressBar) this.progressBar.endAnimation();
     }
 
     /**
@@ -61,7 +58,7 @@ export class SnackbarNotificationComponent implements OnInit, OnDestroy {
      * 
      * @public
      */
-    public close (): void {
+    public close(): void {
         this.snackBar.dismiss();
     }
 }

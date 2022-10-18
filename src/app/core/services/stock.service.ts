@@ -66,9 +66,7 @@ export class StockService {
   }
 
   public remove(symbol: StockSymbol): void {
-    if (!this.has(symbol)) {
-      return;
-    }
+    if (!this.has(symbol)) return;
     this.unstock(symbol);
     const symbols: StockSymbol[] = Array.from(this._stock$.value);
     remove(symbols, (stockedSymbol: StockSymbol) => {

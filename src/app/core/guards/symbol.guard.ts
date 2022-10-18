@@ -16,9 +16,7 @@ export class SymbolGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot,
     ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        if (this.stockService.has(route.params.symbol)) {
-            return true;
-        }
+        if (this.stockService.has(route.params.symbol)) return true;
         this.snackbarNotificationService.openSnackBar({
           icon: 'info',
           message: `The symbol ${route.params.symbol} is not stored. Pleaze store the symbol before requesting access to their details.`,
