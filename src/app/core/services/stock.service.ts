@@ -26,8 +26,7 @@ export class StockService {
     const symbols: StockSymbol[] = Array.from(this._stock$.value);
     return of(symbol).pipe(
       mergeMap((symbol: StockSymbol) => {
-        const stockedSymbol = this.has(symbol);
-        if (stockedSymbol) {
+        if (this.has(symbol)) {
           this.snackbarNotificationService.openSnackBar({
             icon: 'error',
             message: `${symbol.symbol} already stocked!`,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, switchMap, tap, of, filter, finalize } from 'rxjs';
+import { Observable, switchMap, tap, of, filter, finalize, debounceTime, map, mergeMap, timer, debounce, last } from 'rxjs';
 import { FinnhubService, StockService } from '../core/services';
 import { StockSymbol } from '../shared/models';
 import { sortByCustomKey } from '../shared/utils';
@@ -31,12 +31,15 @@ export class SymbolsComponent implements OnInit {
   ngOnInit() {
     this.filteredSymbols$ = this.symbolControl.valueChanges.pipe(
       filter((value: string | StockSymbol | null) => !(value instanceof StockSymbol)),
+      tap(() => this.symbolsLoading = true),
       switchMap((value: string | StockSymbol | null) => {
-        this.symbolsLoading = true;
         if (value === '') {
           return of({count: 0, symbols: []});
         }
-        return this.finnhubService.getSymbols(value as string);
+        return timer(700).pipe(
+          last(),
+          switchMap(() => this.finnhubService.getSymbols(value as string)),
+        )
       }),
       tap((response: {count: number; symbols: StockSymbol[];}) => sortByCustomKey<StockSymbol>(response.symbols, 'symbol')),
       tap({next: (response: {count: number; symbols: StockSymbol[];}) => {
