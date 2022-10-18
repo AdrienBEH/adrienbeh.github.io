@@ -1,5 +1,5 @@
 {
-  "name": "aclvl2",
+  "name": "angularcertif2",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "@angular/platform-browser": "^14.2.5",
     "@angular/platform-browser-dynamic": "^14.2.5",
     "@angular/router": "^14.2.5",
+    "firebase": "^9.12.1",
     "lodash": "^4.17.21",
     "luxon": "^3.0.4",
     "material-icons": "^1.12.0",
