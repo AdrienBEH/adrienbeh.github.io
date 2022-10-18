@@ -33,8 +33,6 @@ import { SymbolModule, PipesModule, DirectivesModule } from '../shared';
   ],
   declarations: [SymbolsComponent],
   providers: [
-    FinnhubService,
-    StockService,
     AsyncPipe
   ],
 })
