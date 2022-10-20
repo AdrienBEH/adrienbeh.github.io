@@ -21,6 +21,49 @@
 - [RxJs - FinnhubService](src/app/core/services/finnhub.service.ts)
 - [RxJs - SymbolsComponent](src/app/symbols/symbols.component.ts)
 - [RxJs - SentimentComponent](src/app/sentiment/sentiment.component.ts)
+- [RxJs - avoid API DDOS - SymbolsComponent.ngOnInit()](src/app/symbols/symbols.component.ts)
+```ts
+// ...omitted
+ngOnInit() {
+  this.filteredSymbols$ = this.symbolControl.valueChanges.pipe(
+    // ...omitted
+    switchMap((value: string | StockSymbol | null) => {
+      // ...omitted
+      return timer(700).pipe(
+        last(),
+        switchMap(() => this.finnhubService.getSymbols(value as string)),
+      )
+    }),
+    // ...omitted
+  );
+  // ...omitted
+}
+```
+- [RxJs - merge observables - StockService.add()](src/app/core/services/stock.service.ts)
+``` ts
+public add(symbol: StockSymbol): Observable<StockSymbol | undefined> {
+  // ...omitted
+  return of(symbol).pipe(
+    mergeMap((symbol: StockSymbol) => {
+      // ...omitted
+      return this.finnhubService.getQuote(symbol.symbol).pipe(
+        // ...omitted
+      )
+    }),
+  );
+}
+```
+- Angular - Pipe TS code use case - SymbolsComponent.trackStockSymbol()](src/app/symbols/symbols.component.ts)
+```ts
+trackStockSymbol(): void {
+  // ...omitted
+    this.asyncPipe.transform(
+      this.stockService.add(this.symbolControl.value)
+      // ...omitted
+    );
+  }
+}
+```
 
 # TODO
 ## Angular token
