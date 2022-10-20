@@ -1,4 +1,5 @@
-[angularcertif2.web.app](angularcertif2.web.app)
+Showcase for Angular Certification Lvl2
+[angularcertif2.web.app](https://angularcertif2.web.app)
 
 # Project Definitions
 [Investopedia StockSymbol](https://www.investopedia.com/terms/s/stocksymbol.asp)
@@ -97,3 +98,6 @@ Documentions pour aider à la réalisation :
 
 ## Documentation
 Documenter au moins pour décrire les inputs/output et contexte des éléments.
+
+## Tests
+Unitaires, fonctionnels et e2e
